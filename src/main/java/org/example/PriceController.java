@@ -52,19 +52,36 @@ public class PriceController {
                     String.format("Invalid date format! Expecting yyyy-MM-dd Given: %s, %s", startDate, endDate));
         }
 
-        return priceRepository.filerPrice(ticker, convertedStartDate, convertedEndDate);
+        return priceRepository.filterPrice(ticker, convertedStartDate, convertedEndDate);
     }
 
 
-    @PostMapping("/insert-price")
-    public Boolean insertPrice() throws Exception{
-        throw new Exception("hihi");
+    @PostMapping(value = "/insert-price", consumes = "application/json")
+    public List<Price> insertPrice(@RequestBody List<Price> newPrices){
+        for (Price newPrice : newPrices){
+            Price matchingPrice = priceRepository.getPriceByTickerAndDate(newPrice.getTicker(), newPrice.getDate());
+
+            if (matchingPrice == null){
+                priceRepository.save(newPrice);
+            }
+            else{
+                matchingPrice.setOpen(newPrice.getOpen());
+                matchingPrice.setHigh(newPrice.getHigh());
+                matchingPrice.setLow(newPrice.getLow());
+                matchingPrice.setClose(newPrice.getClose());
+                matchingPrice.setAdjClose(newPrice.getAdjClose());
+                matchingPrice.setVolume(newPrice.getVolume());
+                priceRepository.save(matchingPrice);
+            }
+
+        }
+        return newPrices;
     }
 
     @DeleteMapping("/delete-symbol")
     public String deleteTicker(@RequestParam("ticker") String ticker){
-        Long count =  priceRepository.deletePricesByTicker(ticker);
-        String response = String.format("Successfully deleted %d records.", count.intValue());
+        Integer count =  priceRepository.deletePricesByTicker(ticker);
+        String response = String.format("Successfully deleted %d records.", count);
 
         return response;
     }

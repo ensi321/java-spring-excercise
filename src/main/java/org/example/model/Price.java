@@ -1,5 +1,6 @@
 package org.example.model;
 
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -7,22 +8,31 @@ import java.util.Date;
 @Table(name = "price")
 public class Price {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "date")
+    @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(name = "ticker")
     private String ticker;
+    @Column(name = "open")
     private Double open;
+    @Column(name = "high")
     private Double high;
+    @Column(name = "low")
     private Double low;
+    @Column(name = "close")
     private Double close;
+    @Column(name = "adj_close")
     private Double adjClose;
+    @Column(name = "volume")
     private Integer volume;
 
     public Price(){
         super();
     }
 
-    public Price(Long id, Date date, String ticker, Double open, Double high, Double low, Double close, Double adjClose, Integer volume) {
-        this.id = id;
+    public Price(Date date, String ticker, Double open, Double high, Double low, Double close, Double adjClose, Integer volume) {
         this.date = date;
         this.ticker = ticker;
         this.open = open;

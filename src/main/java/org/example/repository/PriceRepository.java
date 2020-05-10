@@ -13,9 +13,12 @@ import java.util.List;
 public interface PriceRepository extends JpaRepository<Price, Long> {
 
     @Query("SELECT p FROM Price p WHERE p.ticker = ?1 AND p.date BETWEEN ?2 AND ?3")
-    List<Price> filerPrice(String ticker, Date startDate, Date endDate);
+    List<Price> filterPrice(String ticker, Date startDate, Date endDate);
 
     @Transactional
-    Long deletePricesByTicker(String ticker);
+    Integer deletePricesByTicker(String ticker);
+
+    @Transactional
+    Price getPriceByTickerAndDate(String ticker, Date date);
 
 }
