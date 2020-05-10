@@ -1,7 +1,13 @@
 # java-spring-excercise
 
 To start the application:
+
 `mvn test`
+
+Detailed API document on swagger:
+
+`${application_url}/swagger-ui.html`
+
 
 Application supports the following request:
 

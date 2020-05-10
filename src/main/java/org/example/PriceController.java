@@ -1,5 +1,7 @@
 package org.example;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,14 +25,19 @@ public class PriceController {
         return "Working";
     }
 
+    @ApiOperation(value = "Get all prices")
     @GetMapping("/all-prices")
     public List<Price> getAllPrices(){
         return priceRepository.findAll();
     }
 
+    @ApiOperation(value = "Get prices")
     @GetMapping(value = "/price", params = {"ticker", "startdate"})
-    public List<Price> getPrice(@RequestParam("ticker") String ticker,
+    public List<Price> getPrice(@ApiParam(name = "ticker", value = "Name of the ticker")
+                                @RequestParam("ticker") String ticker,
+                                @ApiParam(name = "startdate", value = "Start of date range of the target prices")
                                 @RequestParam("startdate") String startDate,
+                                @ApiParam(name = "enddate", value = "End of date range of the target prices", defaultValue = "Today")
                                 @RequestParam(value = "enddate", required = false) String endDate)
             throws IllegalArgumentException{
 
@@ -56,6 +63,7 @@ public class PriceController {
     }
 
 
+    @ApiOperation(value = "Insert prices")
     @PostMapping(value = "/insert-price", consumes = "application/json")
     public List<Price> insertPrice(@RequestBody List<Price> newPrices){
         for (Price newPrice : newPrices){
@@ -78,8 +86,11 @@ public class PriceController {
         return newPrices;
     }
 
+
+    @ApiOperation(value = "Delete prices")
     @DeleteMapping("/delete-symbol")
-    public String deleteTicker(@RequestParam("ticker") String ticker){
+    public String deleteTicker(@ApiParam(name = "ticker", value = "Name of the ticker")
+                               @RequestParam("ticker") String ticker){
         Integer count =  priceRepository.deletePricesByTicker(ticker);
         String response = String.format("Successfully deleted %d records.", count);
 
