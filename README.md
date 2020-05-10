@@ -50,6 +50,8 @@ Application supports the following request:
 
 By default application_url is http://localhost:8080/
 
+To view the content of the db or to interact directly, go to http://localhost:8080/h2
+
 
 ====================================================================
 
