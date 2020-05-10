@@ -52,6 +52,8 @@ By default application_url is http://localhost:8080/
 
 
 ====================================================================
+
+
 Target:
 
 Build a stock price backend server, providing functions via api requests.
