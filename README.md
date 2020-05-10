@@ -6,14 +6,21 @@ To start the application:
 Application supports the following request:
 
 `GET: ${application_url}/all-prices`
+
+
 `GET: ${application_url}/price`
+
+
     Param:
         ticker: name of the ticker
         start_date: start of date range of the target prices
         end_date (optional): end of date range of the target prices. If not provided, end_date is set to today
     Example: http://localhost:8080/price?ticker=FB&startdate=2020-04-01&enddate=2020-05-01
-        
+     
+     
 `POST: ${application_url}/insert-price`
+
+
     Insert each price into db. If ticker and date exists, update instead.
     Param:
         List of prices in Application/json
@@ -30,14 +37,19 @@ Application supports the following request:
         	"ticker": "FB"
         	}
         ]
-            
+        
+        
 `DELETE: ${application_url}/delete-symbol`
+
+
     Param:
             ticker: name of the ticker
     Example: http://localhost:8080/delete-symbol?ticker=FB
     
 
+
 By default application_url is http://localhost:8080/
+
 
 ====================================================================
 Target:
