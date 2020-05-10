@@ -62,8 +62,11 @@ public class PriceController {
     }
 
     @DeleteMapping("/delete-symbol")
-    public Boolean deleteSymbol(@RequestParam("ticker") String ticker){
-        return false;
+    public String deleteTicker(@RequestParam("ticker") String ticker){
+        Long count =  priceRepository.deletePricesByTicker(ticker);
+        String response = String.format("Successfully deleted %d records.", count.intValue());
+
+        return response;
     }
 
 
