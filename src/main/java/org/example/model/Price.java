@@ -1,7 +1,6 @@
-package org.example;
+package org.example.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
