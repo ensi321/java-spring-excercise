@@ -9,5 +9,6 @@ CREATE TABLE `price` (
                          `low` float DEFAULT NULL,
                          `close` float DEFAULT NULL,
                          `adj_close` float DEFAULT NULL,
-                         `volume` int DEFAULT NULL
+                         `volume` int DEFAULT NULL,
+                         constraint TICKER_DATE UNIQUE (`ticker`, `date`)
 );
